@@ -1,0 +1,47 @@
+# name: Build Dist
+
+# on:
+#   push:
+#     branches: [main]
+#   workflow_dispatch:
+
+# jobs:
+#   build-and-commit:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # 1. Checkout full history so we can push back
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+
+#       # 2. Setup node
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version-file: '.nvmrc'
+
+#       # 3. Install deps
+#       - run: npm ci
+
+#       # 4. Run build
+#       - run: npm run build-dist
+
+#       # 5. Check if dist changed
+#       - name: Detect dist changes
+#         id: diff
+#         run: |
+#           git add dist
+#           if git diff --cached --quiet; then
+#             echo "changed=no" >> $GITHUB_OUTPUT
+#           else
+#             echo "changed=yes" >> $GITHUB_OUTPUT
+#           fi
+
+#       # 6. Commit and push only when needed
+#       - name: Commit dist to main
+#         if: steps.diff.outputs.changed == 'yes'
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "github-actions[bot]@users.noreply.github.com"
+#           git commit -m "build: update dist [skip ci]"
+#           git push
