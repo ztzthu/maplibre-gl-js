@@ -24,13 +24,13 @@ jobs:
       - run: npm ci
 
       # 4. Run build
-      - run: npm run build-dist -f
+      - run: npm run build-dist
 
       # 5. Check if dist changed
       - name: Detect dist changes
         id: diff
         run: |
-          git add dist
+          git add dist -f
           if git diff --cached --quiet; then
             echo "changed=no" >> $GITHUB_OUTPUT
           else
