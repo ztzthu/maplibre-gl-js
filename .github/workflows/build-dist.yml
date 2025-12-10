@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
 
       # 4. Run build
-      - run: npm run build-dist
+      - run: npm run build-dist -f
 
       # 5. Check if dist changed
       - name: Detect dist changes
